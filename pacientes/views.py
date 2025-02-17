@@ -35,3 +35,15 @@ def paciente_view(request, id):
     paciente = Pacientes.objects.get(id=id)
     if request.method == "GET":
         return render(request, 'paciente.html', {'paciente': paciente})
+
+def atualizar_paciente(request, id):
+    pagamento = request.POST.get('pagamento')
+    paciente = Pacientes.objects.get(id=id)
+
+    if pagamento == 'ativo':
+        paciente.pagamento = True
+        paciente.save()
+    else:
+        paciente.pagamento = False
+        paciente.save()
+    return render(request, 'paciente.html', {'paciente': paciente})
